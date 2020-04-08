@@ -23,7 +23,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign, topscorer;
+	private JButton addParty, finished, assign, topscorer,lowscorer;
 	private JFrame win;
 	private JList partyList;
 	
@@ -52,7 +52,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		// Controls Panel
 		JPanel controlsPanel = new JPanel();
-		controlsPanel.setLayout(new GridLayout(3, 1));
+		controlsPanel.setLayout(new GridLayout(4, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
 		addParty = new JButton("Add Party");
@@ -75,6 +75,14 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		topscorer.addActionListener(this);
 		topscorerPanel.add(topscorer);
 		controlsPanel.add(topscorerPanel);
+
+
+		lowscorer = new JButton("Low Scorer");
+		JPanel lowscorerPanel = new JPanel();
+		lowscorerPanel.setLayout(new FlowLayout());
+		lowscorer.addActionListener(this);
+		lowscorerPanel.add(lowscorer);
+		controlsPanel.add(lowscorerPanel);
 
 
 		finished = new JButton("Finished");
@@ -165,6 +173,9 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		else if (e.getSource().equals(topscorer)){
 //			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 			TopScorer topScorer = new TopScorer();
+		}
+		else if(e.getSource().equals(lowscorer)){
+			LowScorer lowScorer = new LowScorer();
 		}
 	}
 
