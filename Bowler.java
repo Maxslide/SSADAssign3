@@ -58,10 +58,10 @@ public class Bowler {
 		if ( !(nickName.equals(b.getNickName())) ) {
 				retval = false;
 		}
-		if ( !(fullName.equals(b.getFullName())) ) {
+		else if ( !(fullName.equals(b.getFullName())) ) {
 				retval = false;
 		}	
-		if ( !(email.equals(b.getEmail())) ) {
+		else if ( !(email.equals(b.getEmail())) ) {
 				retval = false;
 		}
 		return retval;

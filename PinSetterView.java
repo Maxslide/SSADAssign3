@@ -37,142 +37,109 @@ public class PinSetterView implements PinsetterObserver {
      *                      1
      *
      */
-    
+
 
 	private JFrame frame;
-    
+
     public PinSetterView ( int laneNum ) {
-	
+
 	frame = new JFrame ( "Lane " + laneNum + ":" );
-	
+
 	Container cpanel = frame.getContentPane ( );
-	
+
 	JPanel pins = new JPanel ( );
-	
+
 	pins.setLayout ( new GridLayout ( 4, 7 ) );
-	
+
 	//********************Top of GUI indicates first or second roll
-	
+
 	JPanel top = new JPanel ( );
-	
+
 	firstRoll = new JPanel ( );
 	firstRoll.setBackground( Color.yellow );
-	
+
 	secondRoll = new JPanel ( );
 	secondRoll.setBackground ( Color.black );
-	
+
 	top.add ( firstRoll, BorderLayout.WEST );
-	
+
 	top.add ( secondRoll, BorderLayout.EAST );
-	
+
 	//******************************************************************
-	
+
 	//**********************Grid of the pins**************************
-	
-	
-	JPanel one = new JPanel ();
-	JLabel oneL = new JLabel ( "1" );
-	one.add (oneL);
-	JPanel two = new JPanel ();
-	JLabel twoL = new JLabel ( "2" );
-	two.add (twoL);
-	JPanel three = new JPanel ();
-	JLabel threeL = new JLabel ( "3" );
-	three.add (threeL);
-	JPanel four = new JPanel ();
-	JLabel fourL = new JLabel ( "4" );
-	four.add (fourL);
-	JPanel five = new JPanel ();
-	JLabel fiveL = new JLabel ( "5" );
-	five.add (fiveL);
-	JPanel six = new JPanel ();
-	JLabel sixL = new JLabel ( "6" );
-	six.add (sixL);
-	JPanel seven = new JPanel ();
-	JLabel sevenL = new JLabel ( "7" );
-	seven.add (sevenL);
-	JPanel eight = new JPanel ();
-	JLabel eightL = new JLabel ( "8" );
-	eight.add (eightL);
-	JPanel nine = new JPanel ();
-	JLabel nineL = new JLabel ( "9" );
-	nine.add (nineL);
-	JPanel ten = new JPanel ();
-	JLabel tenL = new JLabel ( "10" );
-	ten.add (tenL);
-	
-	//This Vector will keep references to the pin labels to show
-	//which ones have fallen.
-	
-	pinVect.add ( oneL );
-	pinVect.add ( twoL );
-	pinVect.add ( threeL );
-	pinVect.add ( fourL );
-	pinVect.add ( fiveL );
-	pinVect.add ( sixL );
-	pinVect.add ( sevenL );
-	pinVect.add ( eightL );
-	pinVect.add ( nineL );
-	pinVect.add ( tenL );	
-	
-	
-	//******************************Fourth Row**************
-	
-	pins.add ( seven );
-	pins.add ( new JPanel ( ) );
-	pins.add ( eight );
-	pins.add ( new JPanel ( ) );
-	pins.add ( nine );
-	pins.add ( new JPanel ( ) );
-	pins.add ( ten );
-	
-	//*****************************Third Row***********
-		
-	pins.add ( new JPanel ( ) );
-	pins.add ( four );
-	pins.add ( new JPanel ( ) );
-	pins.add ( five );
-	pins.add ( new JPanel ( ) );
-	pins.add ( six );
-	
-	//*****************************Second Row**************
- 
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	pins.add ( two );
-	pins.add ( new JPanel ( ) );
-	pins.add ( three );
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	
-	//******************************First Row*****************
-	
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	pins.add ( one );
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	pins.add ( new JPanel ( ) );
-	//*********************************************************
-	
+
+	//fourth row
+	int j = 0;
+	for(int i=7;i<=13;i++) {
+
+		if(i%2==0){
+			j+=1;
+			pins.add(new JPanel());
+		}
+		else{
+			JPanel piece = new JPanel();
+			JLabel label = new JLabel(Integer.toString(i-j));
+			piece.add(label);
+			pinVect.add(label);
+			pins.add(piece);
+		}
+	}
+	//third row
+	j=-1;
+	for(int i=3;i<=8;i++){
+		if(i%2==1) {
+			j+=1;
+			pins.add(new JPanel());
+		}
+		else{
+			JPanel piece = new JPanel();
+			JLabel label = new JLabel(Integer.toString(i-j));
+			piece.add(label);
+			pinVect.add(label);
+			pins.add(piece);
+		}
+	}
+	//second row
+	pins.add(new JPanel());
+	pins.add(new JPanel());
+	for(int i=2;i<=3;i++){
+		JPanel piece = new JPanel();
+		JLabel label = new JLabel(Integer.toString(i));
+		piece.add(label);
+		pinVect.add(label);
+		pins.add(new JPanel());
+		pins.add(piece);
+	}
+	pins.add(new JPanel());
+	pins.add(new JPanel());
+	//first row
+	int i = 1;
+	pins.add(new JPanel());
+	pins.add(new JPanel());
+	pins.add(new JPanel());
+	JPanel piece = new JPanel();
+	JLabel label = new JLabel(Integer.toString(i));
+	piece.add(label);
+	pinVect.add(label);
+	pins.add(piece);
+	pins.add(new JPanel());
+	pins.add(new JPanel());
+	pins.add(new JPanel());
+
 	top.setBackground ( Color.black );
-	
+
 	cpanel.add ( top, BorderLayout.NORTH );
-	
+
 	pins.setBackground ( Color.black );
 	pins.setForeground ( Color.yellow );
-	
+
 	cpanel.add ( pins, BorderLayout.CENTER );
-	
+
 	frame.pack();
-	
-	
-//	frame.show();
+
     }
-    
-    
+
     /**
      * This method receives a pinsetter event.  The event is the current
      * state of the PinSetter and the method changes how the GUI looks
@@ -182,7 +149,7 @@ public class PinSetterView implements PinsetterObserver {
      *
      * @param e    The state of the pinsetter is sent in this event.
      */
-    
+
 
     public void receivePinsetterEvent(PinsetterEvent pe){
 	if ( !(pe.isFoulCommited()) ) {
@@ -205,7 +172,7 @@ public class PinSetterView implements PinsetterObserver {
 		secondRoll.setBackground( Color.black);
 	}
     }
-    
+
     public void show() {
     	frame.show();
     }
@@ -213,9 +180,9 @@ public class PinSetterView implements PinsetterObserver {
     public void hide() {
     	frame.hide();
     }
-    
+
     public static void main ( String args [ ] ) {
 		PinSetterView pg = new PinSetterView ( 1 );
     }
-    
+
 }
