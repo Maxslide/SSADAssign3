@@ -48,7 +48,7 @@ public class EndGamePrompt implements ActionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 2));
 
-		Insets buttonMargin = new Insets(4, 4, 4, 4);
+		// Insets buttonMargin = new Insets(4, 4, 4, 4);
 
 		yesButton = new JButton("Yes");
 		JPanel yesButtonPanel = new JPanel();
@@ -86,7 +86,7 @@ public class EndGamePrompt implements ActionListener {
 		if (e.getSource().equals(yesButton)) {		
 			result=1;
 		}
-		if (e.getSource().equals(noButton)) {		
+		else if (e.getSource().equals(noButton)) {		
 			result=2;
 		}
 

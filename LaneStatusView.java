@@ -48,8 +48,6 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		jp.setLayout(new FlowLayout());
 		JLabel cLabel = new JLabel( "Now Bowling: " );
 		curBowler = new JLabel( "(no one)" );
-		JLabel fLabel = new JLabel( "Foul: " );
-		foul = new JLabel( " " );
 		JLabel pdLabel = new JLabel( "Pins Down: " );
 		pinsDown = new JLabel( "0" );
 
@@ -88,8 +86,6 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 
 		jp.add( cLabel );
 		jp.add( curBowler );
-//		jp.add( fLabel );
-//		jp.add( foul );
 		jp.add( pdLabel );
 		jp.add( pinsDown );
 		
@@ -107,25 +103,21 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 				if ( psShowing == false ) {
 					psv.show();
 					psShowing=true;
-				} else if ( psShowing == true ) {
+				} else{
 					psv.hide();
 					psShowing=false;
 				}
 			}
-		}
-		if (e.getSource().equals(viewLane)) {
-			if ( lane.isPartyAssigned() ) { 
+			else if (e.getSource().equals(viewLane)) {
 				if ( laneShowing == false ) {
 					lv.show();
 					laneShowing=true;
-				} else if ( laneShowing == true ) {
+				} else {
 					lv.hide();
 					laneShowing=false;
 				}
 			}
-		}
-		if (e.getSource().equals(maintenance)) {
-			if ( lane.isPartyAssigned() ) {
+			else if (e.getSource().equals(maintenance)) {
 				lane.unPauseGame();
 				maintenance.setBackground( Color.GREEN );
 			}
