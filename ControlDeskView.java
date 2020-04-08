@@ -23,7 +23,8 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign, topscorer,lowscorer;
+	private ButtonCommon addParty, finished,topscorer,lowscorer;
+	private JButton assign;
 	private JFrame win;
 	private JList partyList;
 	
@@ -55,12 +56,13 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		controlsPanel.setLayout(new GridLayout(4, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
-		addParty = new JButton("Add Party");
-		JPanel addPartyPanel = new JPanel();
-		addPartyPanel.setLayout(new FlowLayout());
-		addParty.addActionListener(this);
-		addPartyPanel.add(addParty);
-		controlsPanel.add(addPartyPanel);
+		addParty = new ButtonCommon("Add Party");
+		// JPanel addPartyPanel = new JPanel();
+		// addPartyPanel.setLayout(new FlowLayout());
+		// addParty.addActionListener(this);
+		// addPartyPanel.add(addParty);
+		// controlsPanel.add(addPartyPanel);
+		addParty.Button_Panel(this, controlsPanel);
 
 		assign = new JButton("Assign Lanes");
 		JPanel assignPanel = new JPanel();
@@ -69,29 +71,12 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		assignPanel.add(assign);
 //		controlsPanel.add(assignPanel);
 
-		topscorer = new JButton("Top Scorer");
-		JPanel topscorerPanel = new JPanel();
-		topscorerPanel.setLayout(new FlowLayout());
-		topscorer.addActionListener(this);
-		topscorerPanel.add(topscorer);
-		controlsPanel.add(topscorerPanel);
-
-
-		lowscorer = new JButton("Low Scorer");
-		JPanel lowscorerPanel = new JPanel();
-		lowscorerPanel.setLayout(new FlowLayout());
-		lowscorer.addActionListener(this);
-		lowscorerPanel.add(lowscorer);
-		controlsPanel.add(lowscorerPanel);
-
-
-		finished = new JButton("Finished");
-		JPanel finishedPanel = new JPanel();
-		finishedPanel.setLayout(new FlowLayout());
-		finished.addActionListener(this);
-		finishedPanel.add(finished);
-		controlsPanel.add(finishedPanel);
-
+		topscorer = new ButtonCommon("Top Scorer");
+		topscorer.Button_Panel(this, controlsPanel);
+		lowscorer = new ButtonCommon("Low Scorer");
+		lowscorer.Button_Panel(this, controlsPanel);
+		finished = new ButtonCommon("Finished");
+		finished.Button_Panel(this, controlsPanel);
 		// Lane Status Panel
 		JPanel laneStatusPanel = new JPanel();
 		laneStatusPanel.setLayout(new GridLayout(numLanes, 1));
@@ -160,21 +145,21 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 */
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(addParty)) {
+		if (e.getSource().equals(addParty.button)) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 		}
 		else if (e.getSource().equals(assign)) {
 			controlDesk.assignLane();
 		}
-		else if (e.getSource().equals(finished)) {
+		else if (e.getSource().equals(finished.button)) {
 			win.hide();
 			System.exit(0);
 		}
-		else if (e.getSource().equals(topscorer)){
+		else if (e.getSource().equals(topscorer.button)){
 //			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 			TopScorer topScorer = new TopScorer();
 		}
-		else if(e.getSource().equals(lowscorer)){
+		else if(e.getSource().equals(lowscorer.button)){
 			LowScorer lowScorer = new LowScorer();
 		}
 	}

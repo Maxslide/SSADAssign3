@@ -42,12 +42,9 @@ import java.text.*;
 
 public class LowScorer{
 
-    private int maxSize;
 
     private JFrame win;
-    private JButton addPatron, newPatron, remPatron, finished;
     private JList partyList, allBowlers;
-    private Vector party, bowlerdb;
     private Integer top;
 
     private ControlDeskView controlDesk;

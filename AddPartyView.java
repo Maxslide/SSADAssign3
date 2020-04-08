@@ -109,38 +109,13 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 		// ButtonCommon addbutton = new ButtonCommon();
 		addPatron = new ButtonCommon("Add to Party");
-		addPatron.Button_Panel(this, buttonPanel);
-		// JPanel addPatronPanel = new JPanel();
-		// addPatronPanel.setLayout(new FlowLayout());
-		// addPatron.addActionListener(this);
-		// addPatronPanel.add(addPatron);
-
-		remPatron = new ButtonCommon("Remove Member");
-		// JPanel remPatronPanel = new JPanel();
-		// remPatronPanel.setLayout(new FlowLayout());
-		// remPatron.addActionListener(this);
-		// remPatronPanel.add(remPatron);
-
+		remPatron = new ButtonCommon("Remove Member");		
 		newPatron = new ButtonCommon("New Patron");
-		// JPanel newPatronPanel = new JPanel();
-		// newPatronPanel.setLayout(new FlowLayout());
-		// newPatron.addActionListener(this);
-		// newPatronPanel.add(newPatron);
-
 		finished = new ButtonCommon("Finished");
-		// JPanel finishedPanel = new JPanel();
-		// finishedPanel.setLayout(new FlowLayout());
-		// finished.addActionListener(this);
-		// finishedPanel.add(finished);
+		addPatron.Button_Panel(this, buttonPanel);
 		remPatron.Button_Panel(this, buttonPanel);
 		newPatron.Button_Panel(this, buttonPanel);
 		finished.Button_Panel(this, buttonPanel);
-
-		// buttonPanel.add(addbutton.Button_Panel(this, addPatron));
-		// buttonPanel.add(addbutton.Button_Panel(this, remPatron));
-		// buttonPanel.add(addbutton.Button_Panel(this, newPatron));
-		// buttonPanel.add(addbutton.Button_Panel(this, finished));
-
 		// Clean up main panel
 		colPanel.add(partyPanel);
 		colPanel.add(bowlerPanel);
