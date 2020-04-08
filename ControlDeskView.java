@@ -23,7 +23,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign;
+	private JButton addParty, finished, assign, topscorer;
 	private JFrame win;
 	private JList partyList;
 	
@@ -68,6 +68,14 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		assign.addActionListener(this);
 		assignPanel.add(assign);
 //		controlsPanel.add(assignPanel);
+
+		topscorer = new JButton("Top Scorer");
+		JPanel topscorerPanel = new JPanel();
+		topscorerPanel.setLayout(new FlowLayout());
+		topscorer.addActionListener(this);
+		topscorerPanel.add(topscorer);
+		controlsPanel.add(topscorerPanel);
+
 
 		finished = new JButton("Finished");
 		JPanel finishedPanel = new JPanel();
@@ -147,12 +155,16 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		if (e.getSource().equals(addParty)) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 		}
-		if (e.getSource().equals(assign)) {
+		else if (e.getSource().equals(assign)) {
 			controlDesk.assignLane();
 		}
-		if (e.getSource().equals(finished)) {
+		else if (e.getSource().equals(finished)) {
 			win.hide();
 			System.exit(0);
+		}
+		else if (e.getSource().equals(topscorer)){
+//			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
+			TopScorer topScorer = new TopScorer();
 		}
 	}
 
