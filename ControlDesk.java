@@ -53,7 +53,7 @@ class ControlDesk extends Thread {
 
 	/** The number of lanes represented */
 	private int numLanes;
-	
+
 	/** The collection of subscribers */
 	private Vector subscribers;
 

@@ -5,7 +5,7 @@ public class drive {
 
 	public static void main(String[] args) {
 
-		int numLanes = 3;
+		int numLanes = 6;
 		int maxPatronsPerParty=5;
 
 		Alley a = new Alley( numLanes );

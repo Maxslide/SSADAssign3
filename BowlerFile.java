@@ -38,7 +38,6 @@ class BowlerFile {
 
 	public static Bowler getBowlerInfo(String nickName)
 		throws IOException, FileNotFoundException {
-
 		BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
 		String data;
 		while ((data = in.readLine()) != null) {

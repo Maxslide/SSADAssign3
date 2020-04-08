@@ -18,7 +18,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-
+import java.io.*;
 import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
@@ -31,7 +31,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	private int maxMembers;
 	
 	private ControlDesk controlDesk;
-
 	/**
 	 * Displays a GUI representation of the ControlDesk
 	 *
