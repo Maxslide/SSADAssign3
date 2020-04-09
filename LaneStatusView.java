@@ -19,6 +19,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 	private JLabel curBowler, foul, pinsDown;
 	private ButtonCommon viewLane;
 	private ButtonCommon viewPinSetter, maintenance;
+	private ButtonCommon PauseAndExit;
 
 	private PinSetterView psv;
 	private LaneView lv;
@@ -68,6 +69,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		// viewPinSetterPanel.setLayout(new FlowLayout());
 		// viewPinSetter.addActionListener(this);
 		// viewPinSetterPanel.add(viewPinSetter);
+		PauseAndExit = new ButtonCommon("Pause and exit");
 
 		maintenance = new ButtonCommon("     ");
 		maintenance.button.setBackground( Color.GREEN );
@@ -78,8 +80,10 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 
 		viewLane.button.setEnabled( false );
 		viewPinSetter.button.setEnabled( false );
+		PauseAndExit.button.setEnabled(false);
 		viewLane.Button_Panel(this, buttonPanel);
 		viewPinSetter.Button_Panel(this, buttonPanel);
+		PauseAndExit.Button_Panel(this, buttonPanel);
 		maintenance.Button_Panel(this, buttonPanel);
 		// buttonPanel.add(viewLanePanel);
 		// buttonPanel.add(viewPinSetterPanel);
@@ -122,6 +126,10 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 				lane.unPauseGame();
 				maintenance.button.setBackground( Color.GREEN );
 			}
+			else if(e.getSource().equals(PauseAndExit.button))
+			{
+				lane.PauseNexit();
+			}
 		}
 	}
 
@@ -136,6 +144,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		} else {
 			viewLane.button.setEnabled( true );
 			viewPinSetter.button.setEnabled( true );
+			PauseAndExit.button.setEnabled(true);
 		}
 	}
 

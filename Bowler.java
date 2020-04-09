@@ -22,7 +22,9 @@
  *
  */
 
-public class Bowler {
+import java.io.Serializable;
+
+public class Bowler implements Serializable {
 
     private String fullName;
     private String nickName;

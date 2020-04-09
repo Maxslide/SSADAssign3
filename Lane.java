@@ -135,29 +135,33 @@ import java.util.Vector;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Date;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 public class Lane extends Thread implements PinsetterObserver {	
 	private Party party;
 	private Pinsetter setter;
-	private HashMap scores;
+	private HashMap scores; //top store
 	private Vector subscribers;
 	private GetScore getScore;
 	private boolean gameIsHalted;
 
 	private boolean partyAssigned;
-	private boolean gameFinished;
+	private boolean gameFinished; //to store
 	private Iterator bowlerIterator;
 	private int ball;
 	private int bowlIndex;
-	private int frameNumber;
-	private boolean tenthFrameStrike;
+	private int frameNumber; //to store
+	private boolean tenthFrameStrike; //tostore
 
-	private int[] curScores;
-	private int[][] cumulScores;
+	private int[] curScores; //tostore
+	private int[][] cumulScores; //tostore
 	private boolean canThrowAgain;
 	
-	private int[][] finalScores;
-	private int gameNumber;
+	private int[][] finalScores; //tostore
+	private int gameNumber; //tostore
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
 
@@ -358,12 +362,12 @@ public class Lane extends Thread implements PinsetterObserver {
 		party = theParty;
 		resetBowlerIterator();
 		partyAssigned = true;
-		
+
 		curScores = new int[party.getMembers().size()];
 		cumulScores = new int[party.getMembers().size()][10];
 		finalScores = new int[party.getMembers().size()][128]; //Hardcoding a max of 128 games, bite me.
 		gameNumber = 0;
-		
+
 		getScore.resetScores(party);
 	}
 
@@ -475,12 +479,54 @@ public class Lane extends Thread implements PinsetterObserver {
 		gameIsHalted = true;
 		publish(lanePublish());
 	}
+	public void PauseNexit()
+	{
+		gameIsHalted = true;
+		publish(lanePublish());
+		ArrayList<Object> received = new ArrayList<Object>();
+		// try {
+		// 	FileInputStream filein = new FileInputStream("data.ser");
+		// 	ObjectInputStream in = new ObjectInputStream(filein);
+		// 	received = (ArrayList<Object>)in.readObject();
+		// 	in.close();
+		// 	filein.close();
+		// } catch (Exception e) {
+		// 	System.out.println("FIle input error");
+		// 	System.out.println(e);
+		// 	//TODO: handle exception
+		// }
+
+		ArrayList<Object> data = new ArrayList<Object>();
+		data.add(scores);
+		data.add(gameFinished);
+		data.add(frameNumber);
+		data.add(tenthFrameStrike);
+		data.add(curScores);
+		data.add(gameNumber);
+		data.add(finalScores);
+		data.add(cumulScores);
+		received.add(data);
+		try {
+			FileOutputStream fileout = new FileOutputStream("data.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileout);
+			out.writeObject(received);
+			out.close();
+			fileout.close();
+
+		} catch (Exception e) {
+			System.out.println("File output error");
+			System.out.println(e);
+			//TODO: handle exception
+		}
+
+	}
 	
 	/**
 	 * Resume the execution of this game
 	 */
 	public void unPauseGame() {
 		gameIsHalted = false;
+		
 		publish(lanePublish());
 	}
 
