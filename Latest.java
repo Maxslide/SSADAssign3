@@ -41,26 +41,26 @@ import java.text.*;
  *
  */
 
-public class Individual implements ActionListener, ListSelectionListener {
+public class Latest implements ActionListener, ListSelectionListener {
 
     private int maxSize;
 
     private JFrame win;
     private ButtonCommon check,low;
-    private JList partyList, allBowlers;
-    private Vector party, bowlerdb;
+    private JList partyList, allBowlers,scoreList;
+    private Vector party, bowlerdb,score,date,scoreFinal;
     private Integer lock;
 
     private ControlDeskView controlDesk;
 
-    private String selectedNick, selectedMember;
+    private String selectedNick, selectedMember,selectedScore;
 
-    public Individual(ControlDeskView controlDesk, int max) {
+    public Latest(ControlDeskView controlDesk, int max) {
 
         this.controlDesk = controlDesk;
         maxSize = max;
 
-        win = new JFrame("Individual Best");
+        win = new JFrame("Last 5 Games");
         win.getContentPane().setLayout(new BorderLayout());
         ((JPanel) win.getContentPane()).setOpaque(false);
 
@@ -70,19 +70,35 @@ public class Individual implements ActionListener, ListSelectionListener {
         // Party Panel
         JPanel partyPanel = new JPanel();
         partyPanel.setLayout(new FlowLayout());
-        partyPanel.setBorder(new TitledBorder("Best Score"));
+        partyPanel.setBorder(new TitledBorder("dates"));
+
+        // Score Panel
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new FlowLayout());
+        scorePanel.setBorder(new TitledBorder("scores"));
 
         party = new Vector();
-        Vector empty = new Vector();
-        empty.add("(Empty)");
+        scoreFinal = new Vector();
+        score = new Vector();
+        date= new Vector();
 
-        partyList = new JList(empty);
+        partyList = new JList(party);
         partyList.setFixedCellWidth(120);
-        partyList.setVisibleRowCount(3);
+        partyList.setVisibleRowCount(6);
         partyList.addListSelectionListener(this);
         JScrollPane partyPane = new JScrollPane(partyList);
         //        partyPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         partyPanel.add(partyPane);
+
+
+        scoreList = new JList(scoreFinal);
+        scoreList.setFixedCellWidth(120);
+        scoreList.setVisibleRowCount(6);
+        scoreList.addListSelectionListener(this);
+        JScrollPane scorePane = new JScrollPane(scoreList);
+        //        partyPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scorePanel.add(scorePane);
+
 
         // Bowler Database
         JPanel bowlerPanel = new JPanel();
@@ -96,7 +112,7 @@ public class Individual implements ActionListener, ListSelectionListener {
             bowlerdb = new Vector();
         }
         allBowlers = new JList(bowlerdb);
-        allBowlers.setVisibleRowCount(5);
+        allBowlers.setVisibleRowCount(6);
         allBowlers.setFixedCellWidth(120);
         JScrollPane bowlerPane = new JScrollPane(allBowlers);
         bowlerPane.setVerticalScrollBarPolicy(
@@ -106,18 +122,16 @@ public class Individual implements ActionListener, ListSelectionListener {
 
         // Button Panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 1));
+        buttonPanel.setLayout(new GridLayout(1, 1));
 
         Insets buttonMargin = new Insets(4, 4, 4, 4);
         // ButtonCommon addbutton = new ButtonCommon();
-        check = new ButtonCommon("Highest");
+        check = new ButtonCommon("Check");
         check.Button_Panel(this, buttonPanel);
-
-        low = new ButtonCommon("Lowest");
-        low.Button_Panel(this, buttonPanel);
 
         // Clean up main panel
         colPanel.add(partyPanel);
+        colPanel.add(scorePanel);
         colPanel.add(bowlerPanel);
         colPanel.add(buttonPanel);
 
@@ -138,7 +152,13 @@ public class Individual implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(check.button)) {
             if (selectedNick != null) {
-                int top = 0;
+                score.clear();
+                date.clear();
+                party.clear();
+                scoreFinal.clear();
+                party.add("No Game Yet");
+                scoreFinal.add("No Game Yet");
+//                int top = 1000000;
                 try {
 //                    this.name = "NOT FOUND";
                     File var5 = new File("SCOREHISTORY.DAT");
@@ -147,59 +167,29 @@ public class Individual implements ActionListener, ListSelectionListener {
                     while(var6.hasNextLine()) {
                         String var7 = var6.nextLine();
                         String[] var8 = var7.split("\t");
-                        if (Integer.parseInt(var8[2]) > top && selectedNick.equals(var8[0])) {
-                            top = Integer.parseInt(var8[2]);
+                        if (selectedNick.equals(var8[0])) {
+                            party.clear();
+                            scoreFinal.clear();
+                            String[] var9 = var8[1].split(" ");
+                            score.add(var8[2]);
+                            date.add(var9[1]);
                         }
                     }
-
-                    var6.close();
-                    party.clear();
-                    if(top!=0){
-                        party.add(top);}
-                    else{
-                        party.add("ERROR 404");
+                    int len = score.size();
+                    for(int i = 1;i<=5 && len-i>=0; i=i+1) {
+                        party.add(date.get(len - i));
+                        scoreFinal.add(score.get(len - i));
                     }
+                    var6.close();
                     partyList.setListData(party);
+                    scoreList.setListData(scoreFinal);
 
                 } catch (FileNotFoundException var9) {
                     System.out.println("An error occured");
                     party.add("ERROR 404");
+                    scoreFinal.add("ERROR 404");
                     partyList.setListData(party);
-
-                }
-
-            }
-        }
-        else if (e.getSource().equals(low.button)) {
-            if (selectedNick != null) {
-                int top = 1000000;
-                try {
-//                    this.name = "NOT FOUND";
-                    File var5 = new File("SCOREHISTORY.DAT");
-                    Scanner var6 = new Scanner(var5);
-
-                    while(var6.hasNextLine()) {
-                        String var7 = var6.nextLine();
-                        String[] var8 = var7.split("\t");
-                        if (Integer.parseInt(var8[2]) < top && selectedNick.equals(var8[0])) {
-                            top = Integer.parseInt(var8[2]);
-                        }
-                    }
-
-                    var6.close();
-                    party.clear();
-                    if(top != 1000000){
-                            party.add(top);}
-                    else{
-                        party.add("ERROR 404");
-                    }
-                    partyList.setListData(party);
-
-                } catch (FileNotFoundException var9) {
-                    System.out.println("An error occured");
-                    party.add("ERROR 404");
-                    partyList.setListData(party);
-
+                    scoreList.setListData(scoreFinal);
                 }
 
             }
@@ -219,6 +209,10 @@ public class Individual implements ActionListener, ListSelectionListener {
         }
         if (e.getSource().equals(partyList)) {
             selectedMember =
+                    ((String) ((JList) e.getSource()).getSelectedValue());
+        }
+        if (e.getSource().equals(scoreList)){
+            selectedScore =
                     ((String) ((JList) e.getSource()).getSelectedValue());
         }
     }
