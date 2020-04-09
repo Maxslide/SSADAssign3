@@ -69,7 +69,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		// viewPinSetterPanel.setLayout(new FlowLayout());
 		// viewPinSetter.addActionListener(this);
 		// viewPinSetterPanel.add(viewPinSetter);
-		PauseAndExit = new ButtonCommon("Pause and exit");
+		PauseAndExit = new ButtonCommon("Pause");
 
 		maintenance = new ButtonCommon("     ");
 		maintenance.button.setBackground( Color.GREEN );

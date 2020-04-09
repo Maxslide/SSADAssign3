@@ -156,6 +156,16 @@ class ControlDesk extends Thread {
 		partyQueue.add(newParty);
 		publish(new ControlDeskEvent(getPartyQueue()));
 	}
+	public void addPartyQueueOldGame(ArrayList<Object> OldGame)
+	{
+		System.out.println(OldGame.size());
+		ArrayList<Object> old = OldGame;
+		System.out.println("In Control Desk"+old.size());
+		Party newParty = new Party((Vector)OldGame.get(0));
+		newParty.AssignBoolean(true, OldGame);
+		partyQueue.add(newParty);
+		publish(new ControlDeskEvent(getPartyQueue()));
+	}
 
     /**
      * Returns a Vector of party names to be displayed in the GUI representation of the wait queue.

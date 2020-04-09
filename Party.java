@@ -24,10 +24,13 @@
 
 import java.util.*;
 
+
 public class Party {
 
 	/** Vector of bowlers in this party */	
-    private Vector myBowlers;
+	private Vector myBowlers;
+	public boolean oldGame;
+	public ArrayList<Object> playedGame;
 	
 	/**
 	 * Constructor for a Party
@@ -36,6 +39,7 @@ public class Party {
 	 */
 		
     public Party( Vector bowlers ) {
+		oldGame = false;
 		myBowlers = new Vector(bowlers);
     }
 
@@ -44,9 +48,19 @@ public class Party {
 	 * 
 	 * @return 	A vector of the bowlers in this party
 	 */
-
+	public void AssignBoolean(boolean a, ArrayList<Object> playedG)
+	{
+		oldGame = true;
+		playedGame = playedG;
+		// Collections.copy(playedGame, playedG);
+		System.out.println("In PLayer : "+playedGame.size());
+	}
     public Vector getMembers() {
 		return myBowlers;
-    }
+	}
+	public boolean getOldGame()
+	{
+		return oldGame;
+	}
 
 }
