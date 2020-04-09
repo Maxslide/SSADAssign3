@@ -23,7 +23,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private ButtonCommon addParty, finished,topscorer,lowscorer;
+	private ButtonCommon addParty, finished,topscorer,lowscorer,individual,latest;
 	private JButton assign;
 	private JFrame win;
 	private JList partyList;
@@ -53,7 +53,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		// Controls Panel
 		JPanel controlsPanel = new JPanel();
-		controlsPanel.setLayout(new GridLayout(4, 1));
+		controlsPanel.setLayout(new GridLayout(3, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
 		addParty = new ButtonCommon("Add Party");
@@ -71,12 +71,18 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		assignPanel.add(assign);
 //		controlsPanel.add(assignPanel);
 
+		latest = new ButtonCommon("Latest 5");
+		latest.Button_Panel(this,controlsPanel);
 		topscorer = new ButtonCommon("Top Scorer");
 		topscorer.Button_Panel(this, controlsPanel);
+		individual = new ButtonCommon("Individual Best");
+		individual.Button_Panel(this, controlsPanel);
 		lowscorer = new ButtonCommon("Low Scorer");
 		lowscorer.Button_Panel(this, controlsPanel);
 		finished = new ButtonCommon("Finished");
 		finished.Button_Panel(this, controlsPanel);
+
+
 		// Lane Status Panel
 		JPanel laneStatusPanel = new JPanel();
 		laneStatusPanel.setLayout(new GridLayout(numLanes, 1));
@@ -161,6 +167,12 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		}
 		else if(e.getSource().equals(lowscorer.button)){
 			LowScorer lowScorer = new LowScorer();
+		}
+		else if(e.getSource().equals(individual.button)){
+			Individual individual = new Individual(this, maxMembers);
+		}
+		else if(e.getSource().equals(latest.button)){
+			Latest latest = new Latest(this, maxMembers);
 		}
 	}
 
