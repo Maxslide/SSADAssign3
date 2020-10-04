@@ -103,8 +103,8 @@ public class TopScorer{
         }catch (FileNotFoundException e){
             System.out.println("An error occured");
 //            e.printStackTrace();
-            score.add("ERROR 404");
             names.add("ERROR 404");
+            score.add("ERROR 404");
         }
 
         partyList = new JList(names);
@@ -119,7 +119,7 @@ public class TopScorer{
         bowlerPanel.setLayout(new FlowLayout());
         bowlerPanel.setBorder(new TitledBorder("Score"));
 
-
+        //new list should be added for bowlers:added by bittu
         allBowlers = new JList(score);
         allBowlers.setVisibleRowCount(2);
         allBowlers.setFixedCellWidth(120);
